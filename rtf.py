@@ -69,7 +69,7 @@ class RTF():
 
     def toTXT(self, fileName):
         try:
-            file = open(fileName, "w")
+            file = open(fileName, "w+")
             file.write(self.plainText())
             file.close()
             return True
