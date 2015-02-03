@@ -10,7 +10,7 @@ class RTF():
     # fileName must refer to an RTF file.
     # Input is not validated.
     @staticmethod
-    def rtfToPlainText(fileName):
+    def toPlainText(fileName):
         file = open(fileName)
 
         text = ""
