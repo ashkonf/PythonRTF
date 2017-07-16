@@ -60,7 +60,7 @@ class RTF():
     def plainText(self):
         lastUpdateTime = self.lastUpdateTime()
         if self.__lastCacheUpdateTime == None or self.__lastCacheUpdateTime != lastUpdateTime:
-            self.__cachedPlainText = rtfToPlainText(self.fileName)
+            self.__cachedPlainText = self.toPlainText(self.fileName)
             self.__lastCacheUpdateTime = lastUpdateTime
         return self.__cachedPlainText
 
