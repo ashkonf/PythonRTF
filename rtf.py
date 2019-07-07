@@ -7,17 +7,18 @@ import time
 
 class RTF():
 
-    # fileName must refer to an RTF file.
-    # Input is not validated.
     @staticmethod
-    def toPlainText(fileName):
-        file = open(fileName)
+    def to_plain_text(file_name):
+        # file_name must refer to an RTF file.
+        # Input is not validated.
+        
+        file = open(file_name)
 
         text = ""
-        ignoringHeader = True
-        lastCharWasNewline = False
-        ignoringEscapedCharacters = False
-        escapedCharacters = None
+        ignoring_header = True
+        last_char_was_newline = False
+        ignoring_escaped_characters = False
+        escaped_characters = None
 
         while True:
             char = file.read(1)
@@ -25,52 +26,52 @@ class RTF():
                 break
 
             if char == "\\":
-                ignoringEscapedCharacters = True
+                ignoring_escaped_characters = True
 
-            if not ignoringHeader:
-                if ignoringEscapedCharacters:
+            if not ignoring_header:
+                if ignoring_escaped_characters:
                     if char == "\\":
-                        escapedCharacters = ""
+                        escaped_characters = ""
                     elif char == " ":
-                        ignoringEscapedCharacters = False
+                        ignoring_escaped_characters = False
                     elif char == "\n":
-                        ignoringEscapedCharacters = False
+                        ignoring_escaped_characters = False
                         text += "\n"
                     else:
-                        escapedCharacters += char
+                        escaped_characters += char
                 else:
                     text += char
 
             if char == "\n":
-                if lastCharWasNewline:
-                    ignoringHeader = False
-                lastCharWasNewline = True
+                if last_char_was_newline:
+                    ignoring_header = False
+                last_char_was_newline = True
             else:
-                lastCharWasNewline = False
+                last_char_was_newline = False
 
         file.close()
     
         return text
 
-    def __init__(self, fileName):
-        self.fileName = fileName
-        self.__cachedPlainText = None
-        self.__lastCacheUpdateTime = None
+    def __init__(self, file_name):
+        self.file_name = file_name
+        self.__cached_plain_text = None
+        self.__last_cache_update_time = None
 
-    def plainText(self):
-        lastUpdateTime = self.lastUpdateTime()
-        if self.__lastCacheUpdateTime == None or self.__lastCacheUpdateTime != lastUpdateTime:
-            self.__cachedPlainText = self.toPlainText(self.fileName)
-            self.__lastCacheUpdateTime = lastUpdateTime
-        return self.__cachedPlainText
+    def plain_text(self):
+        last_update_time = self.last_update_time()
+        if self.__last_cache_update_time == None or self.__last_cache_update_time != last_update_time:
+            self.__cached_plain_text = self.to_plain_text(self.file_name)
+            self.__last_cache_update_time = last_update_time
+        return self.__cached_plain_text
 
-    def lastUpdateTime(self):
-        return time.ctime(os.path.getmtime(self.fileName))
+    def last_update_time(self):
+        return time.ctime(os.path.getmtime(self.file_name))
 
-    def toTXT(self, fileName):
+    def dump(self, file_name):
         try:
-            file = open(fileName, "w+")
-            file.write(self.plainText())
+            file = open(file_name, "w+")
+            file.write(self.plain_text())
             file.close()
             return True
         except:
@@ -78,9 +79,9 @@ class RTF():
 
 def main():
     if len(sys.argv) == 2:
-        print RTF(sys.argv[1]).plainText()
+        print RTF(sys.argv[1]).plain_text()
     elif len(sys.argv) == 3:
-        RTF(sys.argv[1]).toTXT(sys.argv[2])
+        RTF(sys.argv[1]).dump(sys.argv[2])
 
 if __name__ == '__main__':
     main()
