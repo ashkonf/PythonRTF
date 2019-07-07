@@ -83,5 +83,5 @@ def main():
     elif len(sys.argv) == 3:
         RTF(sys.argv[1]).dump(sys.argv[2])
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()
