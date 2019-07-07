@@ -15,4 +15,4 @@ The "RTF" class is built around this function, providing additional functionalit
     
     r = RTF("input_filename.rtf")
     print r.plain_text()
-    r.to_txt("output_filename.txt")
+    r.dump("output_filename.txt")
