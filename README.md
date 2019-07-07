@@ -14,5 +14,5 @@ The "RTF" class is built around this function, providing additional functionalit
     from rtf import *
     
     r = RTF("input_filename.rtf")
-    print r.plain_test()
+    print r.plain_text()
     r.to_txt("output_filename.txt")
