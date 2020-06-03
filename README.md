@@ -3,7 +3,7 @@ PythonRTF
 
 A concise module for converting simple RTF documents to plain text.
 
-The "toPlainText" function takes in the file name of an RTF document, and returns the plain text equivalent of the file's contents. It handles only simple RTF documents, ignoring tables, bulleted lists, etc. It does not validate input. Sample usage:
+The "to_plain_text" function takes in the file name of an RTF document, and returns the plain text equivalent of the file's contents. It handles only simple RTF documents, ignoring tables, bulleted lists, etc. It does not validate input. Sample usage:
 
     from rtf import *
     
